@@ -1,0 +1,3 @@
+C:\Users\luisp\source\C++\Metodos\Tmp\Metodos.vcxproj.MdMergeInputs.cache
+C:\Users\luisp\source\C++\Metodos\Tmp\Metodos.vcxproj.cppwinrt_plat.cache
+C:\Users\luisp\source\C++\Metodos\Tmp\Metodos.vcxproj.cppwinrt_comp.cache
