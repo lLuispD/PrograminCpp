@@ -45,7 +45,8 @@ void subM1() {
 	std::cout << "[1] Punto fijo \n";
 	std::cout << "[2] Biseccion \n";
 	std::cout << "[3] Newton - Raphson \n";
-	std::cout << "[4] Regresar \n";
+	std::cout << "[4] Secante \n";
+	std::cout << "[5] Regresar \n";
 }
 
 void subM1A() { 

@@ -8,19 +8,24 @@
 
 double var[10];
 
-double fpura(double x) {
+static double fpura(double x) {
 	// Funcion sin despejar
-	return (cos(x + 2) + pow(x , 3) + 2);
-}
+	return (
+		
+		cos(x + 2) + pow(x, sin(x - 2)) -2				// -3 + x + cos( + 3 * x) 
+);}
 
-double fun(double x) {
+static double fun(double x) {
 	// Funcion despejada
-	return (cos(x + 2) + pow(x, 3) + 2);
-}
-double dxfun(double x) {
-	// Funcion despejada
-	return  (-sin(x + 2) + 3 * pow(x,2));
-}
+	return (
+		3 - cos( pow(x , sin(x)) + 3 * x) 
+);}
+static double dxfun(double x) {
+	// Funcion derivada
+	return  (
+		-sin(x + 2) + 3 * pow(x,2)
+);}
+
 
 int main() {
 menu:
@@ -42,7 +47,7 @@ menu:
 				std::cin >> var[0];
 				prositer();
 				for ( int i = 0; i < iter; i++ )	{
-					var[0] = fun(0);
+					var[0] = fun(var[0]);
 					if (shwiter) std::cout << "x_" << (i + 1) << " = " << var[0] << std::endl;
 					if (!shwiter && i == (iter - 1))std::cout << "x_" << (i + 1) << " = " << var[0] << std::endl;
 					
@@ -73,7 +78,7 @@ menu:
 			std::cin >> var[2];
 			prositer();
 
-			fun(var[0]);
+			fpura(var[0]);
 			for (int i = 0; i < iter; i++) {
 				enum varr { x = 0, a = 1, b = 2 };
 
@@ -86,16 +91,17 @@ menu:
 
 				//std::cout << "f(a) * f(x):  " << fpura(var[a]) << " * " << fpura(var[x]) << ") = " << (fpura(var[a]) * (fpura(var[x])) ) << std::endl;
 				//std::cout << "f(x) * f(b):  " <<fpura(var[x]) << " * " << fpura(var[b]) << ") = " << (fpura(var[x]) * (fpura(var[b]))) << std::endl;
-				
-				if (( fpura(var[a]) * (fpura(var[x])) ) < 0) {
+
+				if ((fpura(var[a]) * (fpura(var[x]))) < 0) {
 					var[b] = var[x];
 					//std::cout <<" b = x " << std::endl;
 				}
 				else if ((fpura(var[x]) * (fpura(var[b]))) < 0) {
-					var[a] = var[x]; 
+					var[a] = var[x];
 					//std::cout << " a = x " << std::endl;
-				} else return 1;
-				
+				}
+				else return 1;
+
 			}
 
 			system("\n Pause");
@@ -108,7 +114,7 @@ menu:
 			std::cin >> var[0];
 			prositer();
 			for (int i = 0; i < iter; i++) {
-				var[0 + 1] = var[0] - (fun(var[0]) / dxfun(var[0]));
+				var[0 + 1] = var[0] - (fpura(var[0]) / dxfun(var[0]));
 				if (shwiter) std::cout << "x =  " << (i + 1) << " : " << var[1] << std::endl;
 				if (!shwiter && i == (iter - 1))std::cout << "x_" << (i + 1) << " = " << var[1] << std::endl;
 				var[0] = var[1];
@@ -116,7 +122,34 @@ menu:
 			system("\n Pause");
 			goto subM1;
 		}
-		else if (option == '4') {							// Regresar
+		else if (option == '4') {							// Secante
+
+			system("Cls");
+			std::cout << "ingrese el valor inicial \n x_0 = ";
+			std::cin >> var[0];
+			std::cout << "ingrese el valor inicial \n x_1 = ";
+			std::cin >> var[1];
+			prositer();
+			 
+			for (int i = 0; i < iter; i++) {
+				enum varr { x_0 = 0, x_1 = 1, x_2 = 2 };			// xi = x_i | x_1 = x_i-1 |x_2 = x_i-2
+
+				var[x_2] = (var[x_1] * fpura(var[x_0]) - var[x_0] * fpura(var[x_1])) /
+							(fpura(var[x_0]) - fpura(var[x_1])); 
+
+				//std::cout << "a =  " << var[a] << std::endl;
+				if (shwiter) std::cout << "x =  " << (i + 2) << " : " << var[x_2] << std::endl;
+				if (!shwiter && i == (iter - 1))std::cout << "x_" << (i + 1) << " = " << var[x_2] << std::endl;
+				//std::cout << "b =  " << var[b] << std::endl << std::endl;
+				var[x_0] = var[x_1];
+				var[x_1] = var[x_2];
+
+			}
+
+			system("\n Pause");
+			goto subM1;
+		}
+		else if (option == '5') {							// Regresar
 			goto menu;
 		}
 		else  goto subM1;
