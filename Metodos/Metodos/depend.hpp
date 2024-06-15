@@ -7,6 +7,7 @@
 extern int iter;
 extern char option;
 extern bool shwiter; 
+extern int special;
  
 void prositer();	// Esta funcion solicita las iteraciones e impresion
 
@@ -15,3 +16,5 @@ void subM1();
 void subM1A();
 void subM2();
 void subM3();
+
+void especial();

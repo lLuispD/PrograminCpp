@@ -3,7 +3,8 @@
 #include <iostream>
 #include <iomanip>
 #include <math.h>
-#include <conio.h>
+#include <conio.h> 
+#include <chrono>
 
 
 double var[10];
@@ -23,6 +24,7 @@ static double fun(double x) {
 static double dxfun(double x) {
 	// Funcion derivada
 	return  (
+		
 		-sin(x + 2) + 3 * pow(x,2)
 );}
 
@@ -41,7 +43,8 @@ menu:
 		subM1A:
 			subM1A();
 			option = _getch();
-			if		(option == '1') {							// Met Punto fijo
+			if		(option == '1') {							
+				// Met Punto fijo
 				system("Cls");
 				std::cout << "ingrese el valor inicial \n";
 				std::cin >> var[0];
@@ -54,7 +57,7 @@ menu:
 				}
 				system("\n Pause");
 				goto subM1A;
-			} 
+			}// Met Punto fijo
 			else if (option == '2'){
 				std::cout << "end\n";
 				system("\n pause");
@@ -64,13 +67,10 @@ menu:
 				goto subM1;
 			}else goto subM1A;
 
-
-			
-			
 			
 		}
 		else if (option == '2') {
-
+			// Biseccion
 			system("Cls");
 			std::cout << "ingrese el valor inicial \n x_0 = ";
 			std::cin >> var[1];
@@ -108,7 +108,7 @@ menu:
 			goto subM1;
 		}
 		else if (option == '3') {
-
+			// Newton - Raphson
 			system("Cls");
 			std::cout << "ingrese el valor inicial \n x_0 = ";
 			std::cin >> var[0];
@@ -123,19 +123,19 @@ menu:
 			goto subM1;
 		}
 		else if (option == '4') {							// Secante
-
+			// Secante
 			system("Cls");
 			std::cout << "ingrese el valor inicial \n x_0 = ";
 			std::cin >> var[0];
 			std::cout << "ingrese el valor inicial \n x_1 = ";
 			std::cin >> var[1];
 			prositer();
-			 
+
 			for (int i = 0; i < iter; i++) {
 				enum varr { x_0 = 0, x_1 = 1, x_2 = 2 };			// xi = x_i | x_1 = x_i-1 |x_2 = x_i-2
 
 				var[x_2] = (var[x_1] * fpura(var[x_0]) - var[x_0] * fpura(var[x_1])) /
-							(fpura(var[x_0]) - fpura(var[x_1])); 
+					(fpura(var[x_0]) - fpura(var[x_1]));
 
 				//std::cout << "a =  " << var[a] << std::endl;
 				if (shwiter) std::cout << "x =  " << (i + 2) << " : " << var[x_2] << std::endl;
@@ -149,7 +149,47 @@ menu:
 			system("\n Pause");
 			goto subM1;
 		}
-		else if (option == '5') {							// Regresar
+		else if (option == '5') {							
+		// Regresar
+			
+
+			// Biseccion
+			system("Cls");
+			std::cout << "ingrese el valor inicial \n x_0 = ";
+			std::cin >> var[1];
+			std::cout << "ingrese el valor inicial \n x_1 = ";
+			std::cin >> var[2];
+			prositer();
+
+			fpura(var[0]);
+			for (int i = 0; i < iter; i++) {
+				enum varr { x = 0, a = 1, b = 2 };
+
+				var[x] = (var[a] * fpura(var[b]) - var[b] * fpura(var[a])) /
+					(fpura(var[b]) - fpura(var[a]));
+
+				if (shwiter) std::cout << "x =  " << (i + 1) << " : " << var[x] << std::endl;
+				if (!shwiter && i == (iter - 1))std::cout << "x_" << (i + 1) << " = " << var[x] << std::endl;
+				 
+				if ((fpura(var[a]) * (fpura(var[x]))) < 0) {
+					var[b] = var[x];
+					//std::cout <<" b = x " << std::endl;
+				}
+				else if ((fpura(var[x]) * (fpura(var[b]))) < 0) {
+					var[a] = var[x];
+					//std::cout << " a = x " << std::endl;
+				}
+				else return 1;
+
+			}
+
+			system("\n Pause");
+			goto subM1;
+
+
+		}
+		else if (option == '6') {
+		// Regresar
 			goto menu;
 		}
 		else  goto subM1;
@@ -181,9 +221,10 @@ menu:
 	else if (option == '4') {								// Salir
 		return 0;
 	}
-	else  goto menu;
+	else { 
+		especial();
 
-
+		goto menu; }
 
 	return 0;
 }
