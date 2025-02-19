@@ -22,8 +22,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{35945166-f141-4034-9890-ae3e78473308}</ProjectGuid>
-    <RootNamespace>SFML_TUTOS</RootNamespace>
+    <ProjectGuid>{fc7802f1-16fc-4513-9f1d-f1660a85bc71}</ProjectGuid>
+    <RootNamespace>Particles</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -168,16 +168,13 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="main.hpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets" Condition="Exists('..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.props'))" />
     <Error Condition="!Exists('..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SFML_VS2019.1.0.0\build\SFML_VS2019.targets'))" />
