@@ -163,10 +163,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Filters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Filters.hpp" />
     <ClInclude Include="UI.hpp" />
   </ItemGroup>
   <ItemGroup>

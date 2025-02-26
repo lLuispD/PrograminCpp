@@ -61,7 +61,6 @@ void UI::Dropdown::handleEvent(const sf::Event& event){
 	}
 }
 
-
 // Método para dibujar (se llama automáticamente con window.draw())
 void UI::Dropdown::draw(sf::RenderTarget& target, sf::RenderStates states) const{
 	target.draw(dropdownBox);
@@ -77,11 +76,6 @@ void UI::Dropdown::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
  
-
-
-
- 
-
 // Constructor
 UI::Button::Button(float posx, float posy, float height, float width, const std::string& label,
 	sf::Color onColor, sf::Color offColor)

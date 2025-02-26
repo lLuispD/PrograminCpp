@@ -25,7 +25,7 @@
     <ProjectGuid>{bb1fd654-9771-4244-946a-9a94faad7095}</ProjectGuid>
     <RootNamespace>Butterworth</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Desplegable+button</ProjectName>
+    <ProjectName>ElementosUI</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
