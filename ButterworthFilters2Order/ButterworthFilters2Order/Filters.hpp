@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include <random>
 #include <vector> 
 
 std::vector <std::string> FilterList = { "Filtro Paso Bajo", "Filtro Paso Alto" };
@@ -7,10 +8,51 @@ std::vector <std::string> CapMultList = { "pF" , "nF" , "uF" };
 std::vector <std::string> ResMultList = { " " , "k" , "M"};
 std::vector <std::string> FrecMultList = { "Hz" , "KHz" , "MHZ" , "GHz"};
 
-const float valuesResistance[] = { 1 , 1.2 , 1.5 , 1.8 , 2.2 , 2.7 , 3.3 , 3.9 , 4.7 , 5.1 , 5.6 , 6.8 , 8.2 };
+const float valuesResistance[] = { 1.f , 1.2f , 1.5f , 1.8f , 2.2f , 2.7f , 3.3f , 3.9f , 4.7f , 5.1f , 5.6f , 6.8f , 8.2f };
+const float MultResistances[] = {1.f , 10.f , 100.f , 1000.f , 10000.f , 100000.f , 1000000.f };
 
-const float MlutResistances[] = {1 , 10 , 100 , 1000 , 10000 , 100000 , 1000000 };
+const float valuesCapacitance[] = { 1.f, 1.5f, 2.2f, 3.3f, 4.7f, 6.8f, 10.f, 15.f, 22.f, 33.f, 47.f, 68.f };
+const float MultCapacitance[] = { 1e-12f, 1e-9f, 1e-6f };
 
+	// Genera un número entero aleatorio en el rango [min, max]
+	int randomNumber(int min, int max) {
+		static std::random_device rd;  // Fuente de semilla
+		static std::mt19937 gen(rd()); // Generador Mersenne Twister
+		std::uniform_int_distribution<> dis(min, max);
+		int value = dis(gen);
+		return value;
+	}
+
+
+namespace dataF {
+	constexpr auto PI = 3.14159265358979323846;   // pi;
+	float RA = 1.f;
+	float RB = 0;
+	float R1 = 0;
+	float R2 = 0;
+	float C1 = 0;
+	float C2 = 0;
+	float Gain = 1.f;
+	float QualityFactor = 1.f;
+	float CutFrequency = 1.f;			 // CutFrequency = 1 / (2 * PI * sqrt(RH1 * CH1 * RH2 * CH2));
+	float tmp_producto = 0; // Variable temporal para almacenar  RH1 * CH1 * RH2 * CH2
+	float tmp_subproducto = 0; // Almacena los sub productos luego de empezar a dar valores
+
+
+	float createResistance() {
+		float valR = valuesResistance[randomNumber(0, 12)];
+		float valMul = MultResistances[randomNumber(0, 6)];
+		return (valR * valMul);
+	}
+	
+	float createCapacitance() {
+		float valC = valuesCapacitance[randomNumber(0, 11)] ;
+		float valMul = MultCapacitance[randomNumber(0, 2)];
+		return (valC * valMul);
+	}
+
+
+}
 
 /*
  
@@ -57,19 +99,4 @@ const float MlutResistances[] = {1 , 10 , 100 , 1000 , 10000 , 100000 , 1000000 
 
  
 
-
-
-
-constexpr auto PI = 3.14159265358979323846;   // pi;
-float RHA = 0;
-float RHB = 0;
-float RH1 = 0;
-float RH2 = 0;
-float CH1 = 0;
-float CH2 = 0;
-float k;
-float QualityFactor = 10;
-float CutFrequency = 1;			 // CutFrequency = 1 / (2 * PI * sqrt(RH1 * CH1 * RH2 * CH2));
-float tmp_producto = 0; // Variable temporal para almacenar  RH1 * CH1 * RH2 * CH2
-float tmp_subproducto = 0; // Almacena los sub productos luego de empezar a dar valores
 

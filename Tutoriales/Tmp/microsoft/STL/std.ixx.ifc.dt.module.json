@@ -3,16 +3,16 @@
     "revision": 0,
     "rules": [
         {
-            "primary-output": "C:\\Users\\luisp\\OneDrive\\Documentos\\CODE\\PrograminCpp\\Tutoriales\\Tmp\\microsoft\\STL\\std.obj",
+            "primary-output": "C:\\Users\\pdL\\source\\C++\\Tutoriales\\Tmp\\microsoft\\STL\\std.obj",
             "outputs": [
-                "C:\\Users\\luisp\\OneDrive\\Documentos\\CODE\\PrograminCpp\\Tutoriales\\Tmp\\microsoft\\STL\\std.ixx.ifc.dt.module.json",
-                "C:\\Users\\luisp\\OneDrive\\Documentos\\CODE\\PrograminCpp\\Tutoriales\\Tmp\\microsoft\\STL\\std.ixx.ifc.dt.d.json",
-                "C:\\Users\\luisp\\OneDrive\\Documentos\\CODE\\PrograminCpp\\Tutoriales\\Tmp\\microsoft\\STL\\std.ifc"
+                "C:\\Users\\pdL\\source\\C++\\Tutoriales\\Tmp\\microsoft\\STL\\std.ixx.ifc.dt.module.json",
+                "C:\\Users\\pdL\\source\\C++\\Tutoriales\\Tmp\\microsoft\\STL\\std.ixx.ifc.dt.d.json",
+                "C:\\Users\\pdL\\source\\C++\\Tutoriales\\Tmp\\microsoft\\STL\\std.ifc"
             ],
             "provides": [
                 {
                     "logical-name": "std",
-                    "source-path": "c:\\visual studio 2022\\vc\\tools\\msvc\\14.43.34808\\modules\\std.ixx",
+                    "source-path": "c:\\program files\\visual studio2022\\vc\\tools\\msvc\\14.43.34808\\modules\\std.ixx",
                     "is-interface": true
                 }
             ],

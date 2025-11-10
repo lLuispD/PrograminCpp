@@ -1,5 +1,5 @@
-  /* Este programa sirve para diseniar filtros Butterworth de segundo orden
-* Se deben estableces en orden
+﻿  /* Este programa sirve para diseniar filtros Butterworth de segundo orden
+* Se deben establecer en orden
 * Ganancia
 * Frecuencia de corte
 * Capacitores
@@ -10,6 +10,7 @@
 
  
 #include "UI.hpp"
+#include "Bode.hpp"
 #include "Filters.hpp"
 #include <memory> // Para std::unique_ptr
 #define HEIGHT_WINDOW 1510
@@ -17,7 +18,7 @@
 
 int main(void) {
 
-    sf::RenderWindow window(sf::VideoMode(HEIGHT_WINDOW, WIDTH_WINDOW), "Dise�o de filtros");
+    sf::RenderWindow window(sf::VideoMode(HEIGHT_WINDOW, WIDTH_WINDOW), "Diseño de filtros activos Sallen Key VCVS de 2° orden");
 
     // Usamos punteros inteligentes para evitar fugas de memoria
    
@@ -68,32 +69,111 @@ int main(void) {
     auto txtBx_R2 = std::make_unique<UI::TextBox>(110, (WIDTH_WINDOW / 13)*11, 70, 30, true);
     auto drpdw_R2 = std::make_unique<UI::Dropdown>(ResMultList,200, (WIDTH_WINDOW / 13)*11, 30, 40);
 
-    // Aqui se dan valores por primera vez a las resistencias y capacitores
+
+    sf::Font myFont;
+    if (!myFont.loadFromFile("C:/Users/pdL/source/C++/ButterworthFilters2Order/Fonts/arial.ttf")) {
+        // Manejar error
+    }
+    auto BodeG = std::make_unique<Bode>(200, 200, 800,1000);
+
+    BodeG->setFont(myFont);
+    // Definir una función de transferencia para un filtro pasa-bajos Butterworth.
+    // La función toma una frecuencia (en Hz) y retorna un par:
+    // {magnitud en dB, fase en grados}.
+    //
+    // Usamos la función de transferencia:
+    // H(jω) = 1/sqrt(1 + (ω/ωc)^2)
+    // con ωc = 2π * fc, donde elegimos fc = 1000 Hz.
+    auto tf = [&](double freqHz) {
+        double fc = 1000.0; // 1 kHz
+        double wc = 2.0 * dataF::PI * fc;
+        double w = 2.0 * dataF::PI * freqHz;
+        double mag = 1.0 / std::sqrt(1.0 + (w / wc) * (w / wc));
+        double magdB = 20.0 * std::log10(mag);
+        double phaseDeg = -std::atan(w / wc) * (180.0 / dataF::PI);
+        return std::make_pair(magdB, phaseDeg);
+        };
+
+    BodeG->setTransferFunction(tf);
+
+    // Ajustar rango dB y fase
+    BodeG->setRangesDBPhase(-80.0, 10.0, -180.0, 0.0);
+
+    // Ajustar subdivisiones
+    BodeG->setGridDivisions(9, 8, 6);
+
+    // Calcular
+    BodeG->updateDiagram();
+
+
+
+
+
+    // SE DAN VALORES DE RESISTENCIAS Y CAPACITORES
     btn_Calculate->setCallback([&]() { 
-        // Valores por defecto en caso ser cero (TextBox vacio)
-        if (std::fabs(txtBx_Gain->getFloat()) < 1e-6f)  txtBx_Gain->setText("1");
-        if (std::fabs(txtBx_Fc->getFloat()) < 1e-6f)  txtBx_Fc->setText("1");
-        if (std::fabs(txtBx_QualityFactor->getFloat()) < 1e-6f)  txtBx_QualityFactor->setText("1");
-        if (std::fabs(txtBx_RA->getFloat()) < 1e-6f)  txtBx_RA->setText("1");
+        // Valores por defecto en caso ser cero; si no, se guardan los valores
+        if (std::fabs(txtBx_Gain->getFloat()) < 1e-6f) {
+            txtBx_Gain->setText(std::to_string(dataF::Gain));
+        } else dataF::Gain = txtBx_Gain->getFloat();
+        if (std::fabs(txtBx_Fc->getFloat()) < 1e-6f) {
+            txtBx_Fc->setText(std::to_string(dataF::CutFrequency));
+        } else dataF::CutFrequency = txtBx_Fc->getFloat();
+        if (std::fabs(txtBx_QualityFactor->getFloat()) < 1e-6f) {
+            txtBx_QualityFactor->setText(std::to_string(dataF::QualityFactor));
+        } else dataF::QualityFactor = txtBx_QualityFactor->getFloat();
+                        
+        if (drpdw_listFilters->getSelection() == FilterList[0]) { 
+            /* Filtro Paso bajo */
+            
+
+        }
+        else if (drpdw_listFilters->getSelection() == FilterList[1]) {
+            /* Filtro paso alto */ 
+          
+            dataF::CutFrequency = txtBx_Fc->getFloat();
+            dataF::C1 = dataF::createCapacitance();
+            dataF::C2 = dataF::C1;
+            dataF::R1 = 1.f / (2.f * dataF::PI * dataF::CutFrequency * dataF::C1);
+            dataF::R2 = dataF::R1;
+            dataF::QualityFactor = txtBx_QualityFactor->getFloat();
+            dataF::Gain = 3.f - (1.f / dataF::QualityFactor);
+            dataF::RB = dataF::createResistance();
+            dataF::RA = dataF::RB * (dataF::Gain - 1);
+
+            system("cls");
+            txtBx_C1->setText(std::to_string(dataF::C1));
+            txtBx_C2->setText(std::to_string(dataF::C2));
+            txtBx_R1->setText(std::to_string(dataF::R1));
+            txtBx_R2->setText(std::to_string(dataF::R2));
+            txtBx_RA->setText(std::to_string(dataF::RA));
+            txtBx_RB->setText(std::to_string(dataF::RB));
+            txtBx_Gain->setText(std::to_string(dataF::Gain));
 
 
+        }   
 
-        txtBx_RB->setText(std::to_string( (txtBx_Gain->getFloat() - 1.0f) * txtBx_RA->getFloat() ));
-        //txtBx_Gain->setText("10") ? txtBx_Gain->getFloat == 0;
-        std::cout << "Ganancia: " << txtBx_Gain->getFloat() << " \n";
-        std::cout << "RA: " << txtBx_RA->getFloat() << "\n";
-        std::cout << "RB: " <<txtBx_RB->getFloat() << "\n";
-        std::cout << "Factor de calidad: " << txtBx_QualityFactor->getFloat() << "\n";
-        std::cout << "Frecuencia de corte: " << txtBx_Fc->getFloat() << "\n";
+
         
+        std::cout << "RA: " << txtBx_RA->getFloat() << " \n";
+        std::cout << "RB: " << txtBx_RB->getFloat() << "\n";
+        std::cout << "R1: " << txtBx_R1->getFloat() << " = " << dataF::R1 << "\n";
+        std::cout << "R2: " << txtBx_R2->getFloat() << "= " << dataF::R2 << "\n";
+        std::cout << "C1: " << txtBx_C1->getFloat() << "= " << dataF::C1 << "\n";
+        std::cout << "C2: " << txtBx_C2->getFloat() << "= " << dataF::C2 << "\n";
+        
+
     });
 
-    txtBx_Gain->setOnEnterPressed([&]() {
-
-        std::cout << "Se presion� Enter. Texto actual: " << txtBx_Gain->getFloat() << std::endl;
-        txtBx_RA->setText("3.33");
+    txtBx_RA->setOnEnterPressed([&]() {
+        dataF::RA = txtBx_RA->getFloat();
+        dataF::RB = dataF::Gain / dataF::RA;
+        txtBx_RB->setText(std::to_string(dataF::RB));
     }); 
-
+    txtBx_C1->setOnEnterPressed([&]() {
+        dataF::C1 = txtBx_RA->getFloat();
+        dataF::C2 = dataF::C1;
+        txtBx_C2->setText(std::to_string(dataF::C2));
+    });
 
     while (window.isOpen()) {
         sf::Event event;
@@ -102,6 +182,7 @@ int main(void) {
                 window.close();
             }
 
+            drpdw_listFilters->handleEvent(event);
             txtBx_Gain->handleEvent(event,window);
             txtBx_QualityFactor->handleEvent(event,window);
             txtBx_Fc->handleEvent(event,window);
@@ -122,7 +203,7 @@ int main(void) {
 
         }
 
-        // Update cursosrs        
+        // Update cursosrs       
         txtBx_Gain->updateCursor();
         txtBx_QualityFactor->updateCursor();
         txtBx_Fc->updateCursor();
@@ -172,6 +253,8 @@ int main(void) {
         window.draw(*txt_R2);
         window.draw(*txtBx_R2);
         window.draw(*drpdw_R2);
+
+        window.draw(*BodeG);
 
         window.display();
     }

@@ -16,12 +16,16 @@
     <ClCompile Include="Filters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UI.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Filters.hpp" />
+    <ClInclude Include="Bode.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

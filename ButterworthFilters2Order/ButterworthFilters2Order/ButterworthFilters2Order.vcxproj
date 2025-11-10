@@ -25,6 +25,7 @@
     <ProjectGuid>{9874cbd2-351c-4fb0-9984-931202dc5873}</ProjectGuid>
     <RootNamespace>ButterworthFilters2Order</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TopologiaSallenKey_2°</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -163,11 +164,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bode.cpp" />
     <ClCompile Include="Filters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bode.hpp" />
     <ClInclude Include="Filters.hpp" />
     <ClInclude Include="UI.hpp" />
   </ItemGroup>

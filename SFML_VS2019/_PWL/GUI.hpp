@@ -65,7 +65,6 @@ namespace GUI {
 
     };
 
-
     class Uxy :public sf::Drawable {
     public:
 
@@ -87,7 +86,6 @@ namespace GUI {
         bool Delete = 0;
          
     };
-
 
     class Graph : public sf::Drawable {
 
@@ -176,48 +174,6 @@ namespace GUI {
 
 
     };
-     
-
-    /*
-    class TextBox : public sf::Drawable {
-    public:
-        TextBox(float x, float y, float width, float height, bool numbersOnly = false);
-
-        void handleEvent(const sf::Event& event, const sf::RenderWindow& window);
-        void update(float deltaTime);
-
-        std::string getText() const;
-        float getFloat() const;
-
-        void setFont(const std::string& fontPath);
-        void setTextColor(const sf::Color& color);
-        void setBoxColor(const sf::Color& color);
-        void setActiveColor(const sf::Color& color);
-        void setText(const std::string& newText);
-        void setOnEnterPressed(std::function<void()> callback);
-
-    protected:
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-        void updateCursorPosition();
-    private:
-
-        sf::RectangleShape box;
-        sf::Text text;
-        sf::Font font;
-        bool isActive;
-        bool onlyNumbers;
-
-        int cursorPos;
-        sf::RectangleShape cursor;
-        sf::Clock cursorTimer;
-        bool cursorVisible;
-        float blinkTime;
-
-        std::string internalString;
-        std::function<void()> enterCallback;
-    };
-    */
-
 
     class TextBox : public sf::Drawable {
     private:
@@ -256,6 +212,10 @@ namespace GUI {
         void setOnEnterCallback(const std::function<void(const std::string&)>& callback);
     };
 
+
+
+
+    std::string openFileDialog();
 
 }
 

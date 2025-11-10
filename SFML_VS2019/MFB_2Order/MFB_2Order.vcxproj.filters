@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="SFML_MFB.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="MGraphics.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="MFBLogic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{957a8247-05b6-4ec4-b4fb-2290f453094f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="includers">
+      <UniqueIdentifier>{852b69db-c4f8-4202-ab16-161da8d65668}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SFML_MFB.hpp">
+      <Filter>includers</Filter>
+    </ClInclude>
+    <ClInclude Include="MGraphics.hpp">
+      <Filter>includers</Filter>
+    </ClInclude>
+    <ClInclude Include="MFBLogic.hpp">
+      <Filter>includers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

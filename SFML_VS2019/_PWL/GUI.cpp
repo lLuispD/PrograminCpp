@@ -2,6 +2,10 @@
 #include    "GUI.hpp" 
 #include    <iostream>
 
+#include <windows.h>
+#include <commdlg.h>
+#include <string> 
+
 #define fontAddress "../Fonts/arial.ttf"
 
 GUI::Txt::Txt() {
@@ -14,6 +18,7 @@ bool GUI::Txt::loadFont(const std::string& fontPath) {
         fontLoaded = true;
         return true;
     }
+    std::cerr << "no se cargo la fuente";
     return false;
 }
 
@@ -665,3 +670,26 @@ void GUI::TextBox::setOnEnterCallback(const std::function<void(const std::string
   //void GUI::TextBox::setOnEnterPressed(std::function<void()> callback) {
 //    enterCallback = std::move(callback);
 //}
+
+std::string GUI::openFileDialog() {
+    OPENFILENAME ofn;       // Estructura para el cuadro de diálogo
+    char szFile[260] = { 0 }; // Buffer para el nombre del archivo
+
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL; // Puedes asignar el handle de tu ventana SFML si lo deseas
+    ofn.lpstrFile = szFile;
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = "Todos los archivos\0*.*\0Archivos de texto\0*.TXT\0";
+    ofn.nFilterIndex = 1;
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    // Muestra el cuadro de diálogo
+    if (GetOpenFileName(&ofn) == TRUE) {
+        return std::string(ofn.lpstrFile);
+    }
+    else {
+        return std::string(); // Retorna una cadena vacía si el usuario cancela
+    }
+}
+
